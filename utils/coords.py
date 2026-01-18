@@ -22,3 +22,10 @@ class Vector2:
             raise TypeError("Second operand isn't of type Vector2")
         
         return Vector2(self.x + val.x, self.y + val.y)
+
+    def __mul__(self, scalar):
+
+        if type(scalar) != int:
+            return NotImplemented
+        
+        return Vector2(self.x * scalar, self.y * scalar)

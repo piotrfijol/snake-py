@@ -122,9 +122,9 @@ class Game:
         elif key == keys['DOWN']:
             self.player.set_y_direction(1)
         elif key == keys['RIGHT']:
-            self.player.set_x_direction(1)
+            self.player.set_x_direction(2)
         elif key == keys['LEFT']:
-            self.player.set_x_direction(-1)
+            self.player.set_x_direction(-2)
         elif key == b'q':
             quit()
 
@@ -155,5 +155,6 @@ class Game:
         :return: Generated oordinates
         :rtype: coords.Vector2
         """
-        return Vector2(random.randint(1, self.width - 2), random.randint(1, self.height - 2))
+        
+        return Vector2(random.randint(1, int((self.width - 2)/2)), random.randint(1, int((self.height - 2)/2))) * 2
     
