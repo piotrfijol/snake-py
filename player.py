@@ -41,3 +41,6 @@ class Player:
 
         return head
 
+    def grow(self):
+        tail_pos = self.body[-1].copy()
+        self.body.append(tail_pos) 

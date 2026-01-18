@@ -14,3 +14,6 @@ class Level:
             raise ValueError("Function expects a single ascii character symbol.")
 
         self.state[y][x] = ascii_symbol
+
+    def get_position(self, x, y):
+        return self.state[y][x]

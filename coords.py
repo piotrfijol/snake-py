@@ -10,3 +10,9 @@ class Vector2:
     
     def copy(self):
         return Vector2(self.x, self.y)
+    
+    def __eq__(self, val):
+        if type(val) != Vector2:
+            raise TypeError("Vector2 can't be compared to other types")
+        
+        return self.x == val.x and self.y == val.y 

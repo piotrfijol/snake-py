@@ -2,6 +2,7 @@ from level import Level
 from time import perf_counter
 from player import Player
 from coords import Vector2
+from apple import Apple
 import os
 import random
 import msvcrt
@@ -13,6 +14,7 @@ class Game:
 
     level = None
     player = None
+    apple = None
 
     def __init__(self, width, height):
         self.height = height
@@ -26,6 +28,7 @@ class Game:
 
         self.generate_level()
         self.spawn_player()
+        self.spawn_food()
 
         start_time = perf_counter()
         tick_interval = 0.5
@@ -46,9 +49,22 @@ class Game:
         
         self.level.update_position(new_pos.x, new_pos.y, self.player.symbol)
 
-        did_eat = False
+        if new_pos == self.apple.position:
+            self.spawn_food()
+            self.player.grow()
+
         if last_tail_x != self.player.tail.x or last_tail_y != self.player.tail.y:
             self.level.update_position(last_tail_x, last_tail_y, ' ')
+
+    def spawn_food(self):
+        apple_pos = Vector2(0, 0)
+        while self.level.get_position(apple_pos.x, apple_pos.y) != ' ':
+            apple_pos = self.get_random_position()
+
+        x, y = apple_pos
+        self.level.update_position(x, y, 'O')
+        self.apple = Apple(x, y)
+
 
     def handle_input(self, key):
         keys = {
