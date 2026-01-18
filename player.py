@@ -2,7 +2,6 @@ from coords import Vector2
 
 class Player:
 
-    body_length = 1
     body = []
 
     def __init__(self, symbol, position, direction = Vector2(0, 0)):
@@ -40,7 +39,7 @@ class Player:
         head.y += self.direction.y
 
         return head
-
+    
     def grow(self):
         tail_pos = self.body[-1].copy()
         self.body.append(tail_pos) 
