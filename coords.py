@@ -7,3 +7,6 @@ class Vector2:
 
     def __iter__(self):
         return iter([self.x, self.y])
+    
+    def copy(self):
+        return Vector2(self.x, self.y)

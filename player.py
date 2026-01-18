@@ -2,10 +2,27 @@ from coords import Vector2
 
 class Player:
 
-    def __init__(self, symbol, head_position, direction = Vector2(0, 0)):
+    body_length = 1
+    body = []
+
+    def __init__(self, symbol, position, direction = Vector2(0, 0)):
         self.symbol = symbol
+        self.body.append(position)
         self.direction = direction
-        self.head = head_position
+
+    @property
+    def head(self):
+        if self.body_length > 0:
+            return self.body[0]
+
+        return None
+
+    @property
+    def tail(self):
+        if len(self.body) > 0:
+            return self.body[-1]
+        
+        return None
 
     def set_x_direction(self, x):
         self.direction = Vector2(x, 0)
@@ -14,7 +31,13 @@ class Player:
         self.direction = Vector2(0, y)
 
     def move(self):
-        self.head.x += self.direction.x 
-        self.head.y += self.direction.y
+        head = self.body[0]
+        if len(self.body) > 1:
+            for i in range(0, len(self.body) - 1):
+                self.body[-1 - i] = self.body[-2 - i].copy()
+        
+        head.x += self.direction.x
+        head.y += self.direction.y
 
-        return self.head
+        return head
+

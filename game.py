@@ -41,8 +41,14 @@ class Game:
                 start_time = perf_counter()
 
     def move_player(self):
+        last_tail_x, last_tail_y = self.player.tail.copy()
         new_pos = self.player.move()
+        
         self.level.update_position(new_pos.x, new_pos.y, self.player.symbol)
+
+        did_eat = False
+        if last_tail_x != self.player.tail.x or last_tail_y != self.player.tail.y:
+            self.level.update_position(last_tail_x, last_tail_y, ' ')
 
     def handle_input(self, key):
         keys = {
@@ -60,6 +66,8 @@ class Game:
             self.player.set_x_direction(1)
         elif key == keys['LEFT']:
             self.player.set_x_direction(-1)
+        elif key == b'q':
+            quit()
 
     def spawn_player(self):
         position = self.get_random_position()
