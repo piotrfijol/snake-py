@@ -150,11 +150,16 @@ class Game:
 
     def get_random_position(self):
         """
-        Generates random x, y cordinates
+        Generates random x, y cordinates.
+        Coordinates are even numbers since
+        snake moves 
 
         :return: Generated oordinates
         :rtype: coords.Vector2
         """
         
-        return Vector2(random.randint(1, int((self.width - 2)/2)), random.randint(1, int((self.height - 2)/2))) * 2
+        # Skip first and last positions since they're just walls
+        random_x = random.randint(1, int((self.width - 2)/2))
+        random_y = random.randint(1, (self.height - 2))
+        return Vector2(random_x* 2, random_y)
     
