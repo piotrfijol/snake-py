@@ -85,11 +85,20 @@ class Game:
 
         new_pos = self.player.body[0] + self.player.direction
 
+        if (new_pos.x > 0 and new_pos.x < self.width 
+            and new_pos.y > 0 and new_pos.y < self.height):
+                new_pos_symbol = self.level.get_position(new_pos.x, new_pos.y)
+        else:
+            self.will_restart = True
+            return
+
         if new_pos == self.apple.position:
             self.spawn_food()
             self.player.grow()
-        elif self.level.get_position(new_pos.x, new_pos.y) != self.symbols['empty']:
+        elif new_pos_symbol != self.symbols['empty']:
             self.will_restart = True
+            return
+            
 
         new_pos = self.player.move()
         
