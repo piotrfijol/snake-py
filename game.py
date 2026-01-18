@@ -1,6 +1,7 @@
 from level import Level
 from time import perf_counter
 from player import Player
+from coords import Vector2
 import os
 import random
 import msvcrt
@@ -40,14 +41,8 @@ class Game:
                 start_time = perf_counter()
 
     def move_player(self):
-        position    = self.player.head
-        direction   = self.player.direction
-        symbol = self.player.symbol
-        new_x = position[0] + direction[0]
-        new_y = position[1] + direction[1]
-        self.level.update_position(new_x, new_y, symbol)
-        position[0] = new_x
-        position[1] = new_y
+        new_pos = self.player.move()
+        self.level.update_position(new_pos.x, new_pos.y, self.player.symbol)
 
     def handle_input(self, key):
         keys = {
@@ -67,9 +62,9 @@ class Game:
             self.player.set_x_direction(-1)
 
     def spawn_player(self):
-        x, y = self.pick_random_position()
-        self.player = Player('#', [x, y])
-        self.level.update_position(x, y, self.player.symbol)
+        position = self.get_random_position()
+        self.player = Player('#', position )
+        self.level.update_position(position.x, position.y, self.player.symbol)
 
     def generate_level(self):
         edge_row = ['-'] * self.width
@@ -86,11 +81,12 @@ class Game:
         os.system("cls")
         print(self.level)
 
-    def pick_random_position(self):
+    def get_random_position(self):
         """
         Generates random x, y cordinates
 
-        :return: [x,y] coordinates as list 
+        :return: Generated oordinates
+        :rtype: coords.Vector2
         """
-        return [random.randint(1, self.width - 2), random.randint(1, self.height - 2)]
+        return Vector2(random.randint(1, self.width - 2), random.randint(1, self.height - 2))
     
