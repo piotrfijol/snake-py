@@ -16,3 +16,9 @@ class Vector2:
             raise TypeError("Vector2 can't be compared to other types")
         
         return self.x == val.x and self.y == val.y 
+    
+    def __add__(self, val):
+        if type(val) != Vector2:
+            raise TypeError("Second operand isn't of type Vector2")
+        
+        return Vector2(self.x + val.x, self.y + val.y)

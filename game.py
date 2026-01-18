@@ -58,17 +58,20 @@ class Game:
                 start_time = perf_counter()
 
     def move_player(self):
-        
+
         last_tail_x, last_tail_y = self.player.tail.copy()
-        new_pos = self.player.move()
-        
-        self.level.update_position(new_pos.x, new_pos.y, self.player.symbol)
+
+        new_pos = self.player.body[0] + self.player.direction
 
         if new_pos == self.apple.position:
             self.spawn_food()
             self.player.grow()
 
-        if last_tail_x != self.player.tail.x or last_tail_y != self.player.tail.y:
+        new_pos = self.player.move()
+        
+        self.level.update_position(new_pos.x, new_pos.y, self.player.symbol)
+
+        if (last_tail_x != self.player.tail.x or last_tail_y != self.player.tail.y):
             self.level.update_position(last_tail_x, last_tail_y, self.symbols['empty'])
 
 
