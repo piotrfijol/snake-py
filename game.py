@@ -45,7 +45,7 @@ class Game:
         self.spawn_food()
 
         start_time = perf_counter()
-        tick_interval = 0.5
+        tick_interval = 0.3
 
         while True:
             if msvcrt.kbhit():
@@ -53,11 +53,12 @@ class Game:
                 self.handle_input(key)
 
             if perf_counter() - start_time >= tick_interval:
-                self.render_frame()
                 self.move_player()
+                self.render_frame()
                 start_time = perf_counter()
 
     def move_player(self):
+        
         last_tail_x, last_tail_y = self.player.tail.copy()
         new_pos = self.player.move()
         
