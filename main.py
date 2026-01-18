@@ -1,5 +1,11 @@
+from game import Game
+
+WIDTH  = 20
+HEIGHT = 10
+
 def main():
-    pass
+    game = Game(WIDTH, HEIGHT)
+    game.start()
 
 if __name__ == '__main__':
     main()
