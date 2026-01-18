@@ -10,6 +10,7 @@ class Game:
     """
 
     level = None
+    player_symbol = '#'
 
     def __init__(self, width, height):
         self.height = height
@@ -30,7 +31,8 @@ class Game:
             time.sleep(0.5)
 
     def spawn_player(self):
-        pos = self.pick_random_position()
+        x, y = self.pick_random_position()
+        self.level.update_position(x, y, self.player_symbol)
 
     def generate_level(self):
         edge_row = ['-'] * self.width
@@ -45,6 +47,7 @@ class Game:
     def render_frame(self):
         # Clear view from previous render
         os.system("cls")
+        print(self.level)
 
     def pick_random_position(self):
         """
