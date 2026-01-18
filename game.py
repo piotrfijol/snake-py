@@ -1,6 +1,7 @@
 from level import Level
 import time
 import os
+import random
 
 
 class Game:
@@ -29,7 +30,7 @@ class Game:
             time.sleep(0.5)
 
     def spawn_player(self):
-        pass
+        pos = self.pick_random_position()
 
     def generate_level(self):
         edge_row = ['-'] * self.width
@@ -44,4 +45,12 @@ class Game:
     def render_frame(self):
         # Clear view from previous render
         os.system("cls")
-        print(self.level)
+
+    def pick_random_position(self):
+        """
+        Generates random x, y cordinates
+
+        :return: [x,y] coordinates as list 
+        """
+        return [random.randint(1, self.width - 2), random.randint(1, self.height - 2)]
+    

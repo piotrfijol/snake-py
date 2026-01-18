@@ -7,3 +7,10 @@ class Level:
 
     def __str__(self):
         return '\n'.join(map(lambda x: ''.join(x), self.state))
+    
+    def update_position(self, x, y, ascii_symbol):
+
+        if len(ascii_symbol) != 1:
+            raise ValueError("Function expects a single ascii character symbol.")
+
+        self.state[y][x] = ascii_symbol
