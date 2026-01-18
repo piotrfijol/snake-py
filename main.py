@@ -1,4 +1,4 @@
-from game import Game
+from game.game import Game
 
 WIDTH  = 20
 HEIGHT = 10

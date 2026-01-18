@@ -1,4 +1,4 @@
-from coords import Vector2
+from utils.coords import Vector2
 
 class Apple:
 

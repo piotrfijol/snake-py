@@ -1,8 +1,8 @@
-from level import Level
+from .level import Level
+from .player import Player
+from .apple import Apple
 from time import perf_counter
-from player import Player
-from coords import Vector2
-from apple import Apple
+from utils.coords import Vector2
 import os
 import random
 import msvcrt
