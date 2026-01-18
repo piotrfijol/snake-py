@@ -2,11 +2,10 @@ from utils.coords import Vector2
 
 class Player:
 
-    body = []
 
     def __init__(self, symbol, position, direction = Vector2(0, 0)):
         self.symbol = symbol
-        self.body.append(position)
+        self.body = [position]
         self.direction = direction
 
     @property

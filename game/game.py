@@ -12,14 +12,15 @@ class Game:
     Game instance responsible for game logic and keeping game state.
     """
 
-    level = None
-    player = None
-    apple = None
-
-
     def __init__(self, width, height):
         self.height = height
         self.width  = width
+        
+        self.level = None
+        self.player = None
+        self.apple = None
+        self.has_started = False
+        self.will_restart = False
 
     @property
     def symbols(self):
@@ -47,15 +48,36 @@ class Game:
         start_time = perf_counter()
         tick_interval = 0.3
 
+        self.render_frame()
+
         while True:
             if msvcrt.kbhit():
                 key = msvcrt.getch()
                 self.handle_input(key)
 
-            if perf_counter() - start_time >= tick_interval:
+                if self.has_started == False:
+                    self.has_started = True
+
+            if perf_counter() - start_time >= tick_interval and self.has_started == True:
                 self.move_player()
+                
+                if self.will_restart == True:
+                    break
+                
                 self.render_frame()
                 start_time = perf_counter()
+
+        if self.will_restart == True:
+            self.will_restart = False
+            self.restart()
+
+    def restart(self):
+        self.level = None
+        self.has_started = False
+        self.player = None
+        self.apple = None
+
+        self.start()
 
     def move_player(self):
 
@@ -66,6 +88,8 @@ class Game:
         if new_pos == self.apple.position:
             self.spawn_food()
             self.player.grow()
+        elif self.level.get_position(new_pos.x, new_pos.y) != self.symbols['empty']:
+            self.will_restart = True
 
         new_pos = self.player.move()
         
