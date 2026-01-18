@@ -1,4 +1,6 @@
 from level import Level
+import time
+import os
 
 
 class Game:
@@ -21,6 +23,11 @@ class Game:
         self.generate_level()
         self.spawn_player()
 
+        while True:
+            self.render_frame()
+            # limit framerate
+            time.sleep(0.5)
+
     def spawn_player(self):
         pass
 
@@ -33,3 +40,8 @@ class Game:
             *[middle_row.copy() for _ in range(self.height - 2)],
             edge_row
         ])
+
+    def render_frame(self):
+        # Clear view from previous render
+        os.system("cls")
+        print(self.level)
